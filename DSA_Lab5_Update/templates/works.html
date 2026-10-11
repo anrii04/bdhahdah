@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Works</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tools.css') }}">
+</head>
+<body>
+    <main>
+        <a class="back-link" href="{{ url_for('index') }}">&larr; Back</a>
+        <p class="eyebrow">Project tools</p>
+        <h1>Choose a tool</h1>
+        <p class="intro">Pick what you would like to try.</p>
+
+        <nav class="tool-options" aria-label="Works">
+            <a class="tool-choice" href="{{ url_for('uppercase') }}">
+                <strong>Uppercase text</strong>
+                <span>Convert a word or sentence to uppercase.</span>
+            </a>
+            <a class="tool-choice" href="{{ url_for('expression_converter') }}">
+                <strong>Infix and postfix converter</strong>
+                <span>Convert expressions in either direction.</span>
+            </a>
+            <a class="tool-choice" href="{{ url_for('linked_list') }}">
+                <strong>Linked list</strong>
+                <span>Build and visualize a simple linked list.</span>
+            </a>
+            <a class="tool-choice" href="{{ url_for('acircle') }}">
+                <strong>Area of a circle</strong>
+                <span>Calculate a circle's area from its radius.</span>
+            </a>
+            <a class="tool-choice" href="{{ url_for('atriangle') }}">
+                <strong>Area of a triangle</strong>
+                <span>Calculate a triangle's area from its base and height.</span>
+            </a>
+        </nav>
+    </main>
+</body>
+</html>

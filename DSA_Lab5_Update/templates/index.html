@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home | Welcome</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --rose: #f0afc0;
+            --text: #fff3f5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text);
+            background-color: #120b0f;
+            background-image: linear-gradient(rgb(18 10 14 / 58%), rgb(18 10 14 / 66%)),
+                              url("{{ url_for('static', filename='images/cover.jpg') }}");
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+        }
+
+        main {
+            display: grid;
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100svh;
+            place-items: center;
+            padding: 24px 18px;
+        }
+
+        .home-content {
+            display: flex;
+            width: min(380px, 100%);
+            flex-direction: column;
+            align-items: stretch;
+            gap: 34px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            width: 100%;
+        }
+
+        .welcome-title {
+            align-self: center;
+            width: max-content;
+            min-width: 0;
+            max-width: none;
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.16;
+            text-align: center;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 0 2px 18px rgb(0 0 0 / 70%);
+            transform: translateY(-74px);
+        }
+
+        .actions {
+            display: grid;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .action-link {
+            display: flex;
+            width: 100%;
+            min-height: 58px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 16px;
+            background: rgb(27 15 21 / 86%);
+            border: 1px solid rgb(240 175 192 / 48%);
+            border-radius: 16px;
+            box-shadow: 0 10px 28px rgb(0 0 0 / 28%);
+            backdrop-filter: blur(8px);
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+        }
+
+        .action-link:hover,
+        .action-link:focus-visible {
+            color: var(--rose);
+            background: rgb(55 27 39 / 92%);
+            border-color: var(--rose);
+            outline: 2px solid var(--rose);
+            outline-offset: 4px;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 620px) {
+            .welcome-title {
+                font-size: 30px;
+                transform: translateY(-58px);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .welcome-title {
+                font-size: 24px;
+                transform: translateY(-46px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="home-content">
+            <h1 class="welcome-title">Welcome to My Website</h1>
+            <nav class="hero" aria-label="Main navigation">
+                <div class="actions">
+                    <a class="action-link" href="{{ url_for('profile') }}">Profile</a>
+                    <a class="action-link" href="{{ url_for('works') }}">Works</a>
+                    <a class="action-link" href="{{ url_for('contact') }}">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </main>
+</body>
+</html>

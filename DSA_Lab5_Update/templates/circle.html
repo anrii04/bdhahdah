@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Area of a Circle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tools.css') }}">
+</head>
+<body>
+    <main>
+        <a class="back-link" href="{{ url_for('works') }}" onclick="if (history.length > 1) { history.back(); return false; }">&larr; Back</a>
+        <section class="tool-panel" aria-labelledby="page-title">
+            <p class="eyebrow">Circle calculator</p>
+            <h1 id="page-title">Area of a Circle</h1>
+            <p class="intro">Enter the circle's radius to calculate its area.</p>
+
+            <form action="{{ url_for('acircle') }}" method="post">
+                <label for="radius">Radius</label>
+                <input type="number" id="radius" name="radius" min="0" step="1" required>
+                <button type="submit">Calculate area</button>
+            </form>
+
+            {% if result is not none %}
+            <p class="result" role="status">Area of the circle: <strong>{{ result }}</strong></p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

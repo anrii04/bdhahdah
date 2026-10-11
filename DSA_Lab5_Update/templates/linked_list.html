@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Linked List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tools.css') }}">
+</head>
+<body>
+    <main>
+        <a class="back-link" href="{{ url_for('works') }}">&larr; Back</a>
+        <section class="tool-panel" aria-labelledby="page-title">
+            <p class="eyebrow">Data structure</p>
+            <h1 id="page-title">Linked List</h1>
+            <p class="intro">Enter comma-separated values, then add or remove a node at either end or a specific position.</p>
+
+            <form action="{{ url_for('linked_list') }}" method="post">
+                <input type="hidden" name="values" value="{{ ','.join(values) }}">
+
+                <label for="new_value">New node value (for insert operations)</label>
+                <input type="text" id="new_value" name="new_value" placeholder="Value to insert" autocomplete="off">
+
+                <input type="hidden" id="operation">
+                <div id="position-controls" hidden>
+                    <label for="index">Position</label>
+                    <input type="number" id="index" name="index" min="0" value="0" autocomplete="off">
+                    <button id="apply-position-operation" type="submit">Apply operation</button>
+                </div>
+
+                <div class="linked-list-operations" role="group" aria-label="Linked list operations">
+                    <button class="operation-card" type="submit" name="operation" value="insert_beginning">
+                        <strong>Insert at beginning</strong>
+                    </button>
+                    <button class="operation-card" type="submit" name="operation" value="insert_end">
+                        <strong>Insert at end</strong>
+                    </button>
+                    <button class="operation-card" type="submit" name="operation" value="remove_beginning">
+                        <strong>Remove from beginning</strong>
+                    </button>
+                    <button class="operation-card" type="submit" name="operation" value="remove_end">
+                        <strong>Remove from end</strong>
+                    </button>
+                    <button class="operation-card position-operation" type="button" data-operation="insert">
+                        <strong>Insert at position</strong>
+                    </button>
+                    <button class="operation-card position-operation" type="button" data-operation="remove_position">
+                        <strong>Remove at position</strong>
+                    </button>
+                </div>
+            </form>
+            <script>
+                const operationInput = document.getElementById('operation');
+                const positionControls = document.getElementById('position-controls');
+                const indexInput = document.getElementById('index');
+                const applyPositionButton = document.getElementById('apply-position-operation');
+
+                document.querySelectorAll('.position-operation').forEach((button) => {
+                    button.addEventListener('click', () => {
+                        operationInput.name = 'operation';
+                        operationInput.value = button.dataset.operation;
+                        positionControls.hidden = false;
+                        applyPositionButton.textContent = button.dataset.operation === 'insert'
+                            ? 'Insert at position'
+                            : 'Remove at position';
+                        indexInput.focus();
+                    });
+                });
+
+                document.querySelectorAll('.operation-card[type="submit"]').forEach((button) => {
+                    button.addEventListener('click', () => {
+                        operationInput.removeAttribute('name');
+                        positionControls.hidden = true;
+                    });
+                });
+            </script>
+
+            {% if message %}
+            <p class="result" role="alert">{{ message }}</p>
+            {% endif %}
+
+            {% if show_list %}
+            <div class="linked-list-display" role="list" aria-label="Linked list nodes">
+                {% if values %}
+                    {% for value in values %}
+                    <div class="linked-list-item">
+                        <div class="linked-list-node" role="listitem">
+                            <strong>{{ value }}</strong>
+                        </div>
+                        {% if not loop.last %}
+                        <span class="linked-list-arrow" aria-hidden="true">&rarr;</span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <p class="linked-list-empty" role="status">The list is empty.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Infix and Postfix Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='tools.css') }}">
+</head>
+<body>
+    <main>
+        <a class="back-link" href="{{ url_for('works') }}">&larr; Back</a>
+        <section class="tool-panel" aria-labelledby="page-title">
+            <p class="eyebrow">Expression tool</p>
+            <h1 id="page-title">Infix and Postfix Converter</h1>
+            <p class="intro">Convert expressions in either direction.</p>
+
+            <section aria-labelledby="infix-title">
+                <h2 id="infix-title">Infix to Postfix</h2>
+                <form action="{{ url_for('expression_converter') }}" method="post">
+                    <input type="hidden" name="conversion" value="infix_to_postfix">
+                    <input type="hidden" name="postfix_expression" value="{{ postfix_expression }}">
+                    <label for="infix_expression">Infix expression</label>
+                    <input type="text" id="infix_expression" name="infix_expression" value="{{ infix_expression }}" placeholder="(a + b) * c" autocomplete="off" required>
+                    <button type="submit">Convert to postfix</button>
+                </form>
+                {% if conversion == 'infix_to_postfix' and error %}
+                <p class="result" role="alert">{{ error }}</p>
+                {% elif conversion == 'infix_to_postfix' and result is not none %}
+                <p class="result" role="status">Postfix expression: <strong>{{ result }}</strong></p>
+                {% endif %}
+            </section>
+
+            <section class="converter-section" aria-labelledby="postfix-title">
+                <h2 id="postfix-title">Postfix to Infix</h2>
+                <form action="{{ url_for('expression_converter') }}" method="post">
+                    <input type="hidden" name="conversion" value="postfix_to_infix">
+                    <input type="hidden" name="infix_expression" value="{{ infix_expression }}">
+                    <label for="postfix_expression">Postfix expression</label>
+                    <input type="text" id="postfix_expression" name="postfix_expression" value="{{ postfix_expression }}" placeholder="a b + c *" autocomplete="off" required>
+                    <button type="submit">Convert to infix</button>
+                </form>
+                {% if conversion == 'postfix_to_infix' and error %}
+                <p class="result" role="alert">{{ error }}</p>
+                {% elif conversion == 'postfix_to_infix' and result is not none %}
+                <p class="result" role="status">Infix expression: <strong>{{ result }}</strong></p>
+                {% endif %}
+            </section>
+        </section>
+    </main>
+</body>
+</html>
